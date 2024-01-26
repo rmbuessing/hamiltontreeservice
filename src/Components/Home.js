@@ -13,10 +13,9 @@ const Home = () => {
         className="flex-grow items-center justify-center p-8" // Use flex-grow for content
         style={{
           backgroundImage: `url(${htsTruck})`,
-          backgroundSize: '100%', // Slightly larger background size for a "zoom out" effect
-          backgroundPosition: '10% 35%', // Adjust the background position with percentage values
+          backgroundSize: 'cover', // Adjust to 'cover' to ensure it fills the area
+          backgroundPosition: 'center', // Center the image
           backgroundRepeat: 'no-repeat'
-
         }}
       >
         <div
