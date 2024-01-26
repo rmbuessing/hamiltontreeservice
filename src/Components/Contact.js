@@ -7,7 +7,7 @@ const Contact = () => {
     <div className="bg-gray-100 min-h-screen justify-between">
       <Navigation />
       <div className="flex items-center justify-center">
-        <div className="bg-white px-8 py-4 rounded-lg shadow-lg w-2/3 md:flex mt-16 mb-4"
+        <div className="bg-white px-8 py-4 rounded-lg shadow-lg md:w-2/3 w-full mx-4 sm:mx-0 mt-16 mb-4"
           style={{ animation: 'fadeInUp 0.5s ease-out' }}>
 
           <div className="md:w-1/2 md:pr-4">
