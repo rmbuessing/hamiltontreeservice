@@ -2,13 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './Components/Home';
 import Contact from './Components/Contact';
-import Inventory from './Components/Inventory';
+import OurWork from './Components/OurWork';
 
 const App = () => {
   return (
     <Router>
       <Routes>
-      {/*<Route path="/inventory" element={<Inventory />} />*/}
+      <Route path="/our-work" element={<OurWork />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/" element={<Home />} />
       </Routes>

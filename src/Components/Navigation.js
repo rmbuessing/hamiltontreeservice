@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import htsImage from '../Images/hts.jpeg';
 
 const Navigation = () => {
   const location = useLocation();
@@ -9,98 +10,76 @@ const Navigation = () => {
     if (pathname === "/contact") {
       return "Contact-Us-tab";
     }
-    if (pathname === "/inventory") {
-      return "Our-Inventory-tab";
+    if (pathname === "/our-work") {
+      return "Our-work-tab";
     }
     return "Home-tab";
   });
+  useEffect(() => {
+    // Ensure that the body is scrollable when the location changes
+    document.body.style.overflow = 'auto';
+  }, [location]);
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    // Delay the state update to allow the CSS transition to take effect
-    setTimeout(() => {
-      setIsMenuOpen(!isMenuOpen);
-    }, 10);
+  const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+  };
 
-    // Lock body scroll when sidebar is open
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
     document.body.style.overflow = isMenuOpen ? 'auto' : 'hidden';
   };
 
   return (
-    <header className="bg-white border-b-2 border-gray-300 py-3 md:py-5">
+    <header className="bg-white border-b-2 border-gray-300 py-1 sticky top-0 z-50"> {/* Sticky header */}
       <nav className="container mx-auto flex justify-between items-center">
-        <div className="text-blue-500 text-center font-logo ml-4">
-          <div className="text-4xl font-bold mb-1">A1</div>
-          <div className="text-4xl font-bold">Truck & Van Wrecking</div>
+        <div className="flex-1 md:flex-none text-center">
+          <img src={htsImage} alt="HTS Logo" className="h-32 w-80 mx-auto md:m-0" />
         </div>
         <ul className="hidden md:flex md:space-x-16 md:justify-center md:items-center">
           <li>
             <NavLink
               exact
               to="/"
-              className={`text-black text-3xl font-bold transition duration-200 ${
-                activeTab === "Home-tab" ? 'text-blue-500 border-b-2 border-blue-500 pb-2' : 'hover:border-b-2 hover:border-blue-500 pb-2'}
-              `}
-              onClick={() => {
-                setActiveTab("Home-tab");
-                toggleMenu();
-              }}
+              className={`text-black text-3xl font-bold transition duration-200 ${activeTab === "Home-tab" ? 'text-fuchsia-500 border-b-2 border-fuchsia-500 pb-2' : 'hover:border-b-2 hover:border-fuchsia-500 pb-2'}`}
+              onClick={() => handleTabClick("Home-tab")}
             >
               Home
             </NavLink>
           </li>
           <li>
             <NavLink
+              to="/our-work"
+              className={`text-black text-3xl font-bold transition duration-200 ${activeTab === "Our-work-tab" ? 'text-fuchsia-500 border-b-2 border-fuchsia-500 pb-2' : 'hover:border-b-2 hover:border-fuchsia-500 pb-2'}`}
+              onClick={() => handleTabClick("Our-work-tab")}
+            >
+              Our Work
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
               to="/contact"
-              className={`text-black text-3xl font-bold transition duration-200 ${
-                activeTab === "Contact-Us-tab" ? 'text-blue-500 border-b-2 border-blue-500 pb-2' : 'hover:border-b-2 hover:border-blue-500 pb-2'}
-              `}
-              onClick={() => {
-                setActiveTab("Contact-Us-tab");
-                toggleMenu();
-              }}
+              className={`text-black text-3xl font-bold transition duration-200 ${activeTab === "Contact-Us-tab" ? 'text-fuchsia-500 border-b-2 border-fuchsia-500 pb-2' : 'hover:border-b-2 hover:border-fuchsia-500 pb-2'}`}
+              onClick={() => handleTabClick("Contact-Us-tab")}
             >
               Contact Us
             </NavLink>
           </li>
-          <li>
-          <NavLink
-            to="http://search8421.used-auto-parts.biz/inventory/retail.htm"
-            className={`text-black text-3xl font-bold transition duration-200 ${
-              activeTab === "Our-Inventory-tab"
-                ? 'text-blue-500 border-b-2 border-blue-500 pb-2'
-                : 'hover:border-b-2 hover:border-blue-500 pb-2'
-            }`}
-            onClick={() => {
-              setActiveTab("Our-Inventory-tab");
-              toggleMenu();
-
-              // Redirect to the specified URL
-              window.location.href = "http://search8421.used-auto-parts.biz/inventory/retail.htm";
-            }}
-          >
-            Our Inventory
-          </NavLink>
-          </li>
         </ul>
         <div className="hidden md:flex md:flex-col md:items-end md:justify-end">
-          {/* Hide on screens smaller than medium */}
           <p className="text-black text-lg font-semibold mr-12 hidden md:block" style={{ fontSize: '1.5rem' }}>
-            Call Us: (480) 983-0511
+            Call Us: (810) 291-0410
           </p>
           <p className="text-black text-sm mr-12 hidden md:block" style={{ fontSize: '1.25rem' }}>
-            Mon - Fri: 8:00 AM - 5:00 PM
+            Mon - Sun: 8:00 AM - 8:00 PM
           </p>
-          <p className="text-black text-sm mr-12 hidden md:block" style={{ fontSize: '1.25rem' }}>
-            Sat: 8:00 AM - 1:00 PM Sun: Closed
+          <p className="text-red-600 text-sm mr-12 hidden md:block" style={{ fontSize: '1.25rem' }}>
+            24 Hour Emergency Service
           </p>
         </div>
         <div className="md:hidden flex items-center">
-          <button
-            onClick={toggleMenu}
-            className="text-black text-5xl sm:text-5xl focus:outline-none"
-          >
+          <button onClick={toggleMenu} className="text-black text-5xl sm:text-5xl focus:outline-none mr-4">
             ☰
           </button>
         </div>
@@ -110,7 +89,6 @@ const Navigation = () => {
           <div className="overlay" onClick={toggleMenu}></div>
           <div className={`sidebar ${isMenuOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
             <button className="sidebar-close" onClick={toggleMenu}>
-              {/* Make close icon ("x") bigger */}
               <span className="text-5xl">&times;</span>
             </button>
             <ul className="mt-2 space-y-2">
@@ -118,43 +96,28 @@ const Navigation = () => {
                 <NavLink
                   exact
                   to="/"
-                  className={`text-black text-3xl font-bold transition duration-200 ${
-                    activeTab === "Home-tab" ? 'text-blue-500 border-b-2 border-blue-500 pb-2' : 'hover:border-b-2 hover:border-blue-500 pb-2'}
-                  `}
-                  onClick={() => {
-                    setActiveTab("Home-tab");
-                    toggleMenu();
-                  }}
+                  className={`text-black text-3xl font-bold transition duration-200 ${activeTab === "Home-tab" ? 'text-fuchsia-500 border-b-2 border-fuchsia-500 pb-2' : 'hover:border-b-2 hover:border-fuchsia-500 pb-2'}`}
+                  onClick={() => handleTabClick("Home-tab")}
                 >
                   Home
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to="/contact"
-                  className={`text-black text-3xl font-bold transition duration-200 ${
-                    activeTab === "Contact-Us-tab" ? 'text-blue-500 border-b-2 border-blue-500 pb-2' : 'hover:border-b-2 hover:border-blue-500 pb-2'}
-                  `}
-                  onClick={() => {
-                    setActiveTab("Contact-Us-tab");
-                    toggleMenu();
-                  }}
+                  to="/our-work"
+                  className={`text-black text-3xl font-bold transition duration-200 ${activeTab === "Our-Inventory-tab" ? 'text-fuchsia-500 border-b-2 border-fuchsia-500 pb-2' : 'hover:border-b-2 hover:border-fuchsia-500 pb-2'}`}
+                  onClick={() => handleTabClick("Our-Inventory-tab")}
                 >
-                  Contact Us
+                  Our Work
                 </NavLink>
               </li>
               <li>
                 <NavLink
-                  to="http://search8421.used-auto-parts.biz/inventory/retail.htm"
-                  className={`text-black text-3xl font-bold transition duration-200 ${
-                    activeTab === "Our-Inventory-tab" ? 'text-blue-500 border-b-2 border-blue-500 pb-2' : 'hover:border-b-2 hover:border-blue-500 pb-2'}
-                  `}
-                  onClick={() => {
-                    setActiveTab("Our-Inventory-tab");
-                    toggleMenu();
-                  }}
+                  to="/contact"
+                  className={`text-black text-3xl font-bold transition duration-200 ${activeTab === "Contact-Us-tab" ? 'text-fuchsia-500 border-b-2 border-fuchsia-500 pb-2' : 'hover:border-b-2 hover:border-fuchsia-500 pb-2'}`}
+                  onClick={() => handleTabClick("Contact-Us-tab")}
                 >
-                  Our Inventory
+                  Contact Us
                 </NavLink>
               </li>
             </ul>
