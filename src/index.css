@@ -1,0 +1,137 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+/* styles.css */
+.bg-image {
+  background-size: cover; /* Use cover to cover the entire container */
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Other styling properties */
+}
+/* Add these styles to your existing CSS */
+
+.sidebar-container {
+  position: fixed;
+  top: 0;
+  right: 0; /* Position the container on the right side */
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px; /* Initial position outside of the viewport on the right */
+  height: 100%;
+  width: 250px;
+  background-color: white;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-left: 1px solid #ccc; /* Adjusted border side */
+  padding-top: 1rem;
+  animation-duration: 0.3s; /* Animation duration */
+}
+
+.sidebar-open {
+  right: 0; /* Slide in the sidebar from the right */
+  animation-name: slideIn; /* Apply slide-in animation */
+}
+
+.sidebar-closed {
+  right: -250px; /* Slide out the sidebar to the right */
+  animation-name: slideOut; /* Apply slide-out animation */
+}
+
+/* Animation keyframes */
+@keyframes slideIn {
+  from {
+    right: -250px;
+  }
+  to {
+    right: 0;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    right: 0;
+  }
+  to {
+    right: -250px;
+  }
+}
+
+.sidebar-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.sidebar-close span {
+  font-weight: bold;
+  color: #555;
+}
+
+.sidebar-close:focus {
+  outline: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+/* Larger screens (md and above) */
+@media (min-width: 768px) {
+  .hidden-md {
+    display: none;
+  }
+}
+
+/* Smaller screens (sm and below) */
+@media (max-width: 767px) {
+  /* Hide phone number and business hours */
+  .hidden-sm {
+    display: none;
+  }
+  
+  /* Adjust padding for the hamburger button */
+  .md\:hidden.flex {
+    padding-right: 1rem;
+  }
+}
+/* Make the hamburger icon bigger on smaller screens */
+.text-hamburger {
+  font-size: 2.5rem;
+}
+
+/* Make the "x" icon bigger in the sidebar */
+.text-close {
+  font-size: 2rem;
+}
